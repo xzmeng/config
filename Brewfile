@@ -1,5 +1,7 @@
 brew "gh"
 brew "mas"
+brew "zsh-autosuggestions"
+brew "zsh-syntax-highlighting"
 
 cask "alfred"
 cask "clash-verge-rev"
