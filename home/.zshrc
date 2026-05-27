@@ -1,3 +1,7 @@
+if [ -f "$HOME/.zshrc.local" ]; then
+    source "$HOME/.zshrc.local"
+fi
+
 # PATH
 export PATH="$HOME/.local/bin:$PATH"
 
