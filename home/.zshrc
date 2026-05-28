@@ -6,7 +6,17 @@ fi
 export PATH="$HOME/.local/bin:$PATH"
 
 # homebrew
-eval "$(brew shellenv)"
+if [[ "$OSTYPE" == darwin* ]]; then
+    if [ -f /opt/homebrew/bin/brew ]; then
+        eval "$(/opt/homebrew/bin/brew shellenv)"
+    elif [ -f /usr/local/bin/brew ]; then
+        eval "$(/usr/local/bin/brew shellenv)"
+    fi
+elif [[ "$OSTYPE" == linux* ]]; then
+    if [ -f /home/linuxbrew/.linuxbrew/bin/brew ]; then
+        eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+    fi
+fi
 
 # zoxide
 eval "$(zoxide init zsh)"
