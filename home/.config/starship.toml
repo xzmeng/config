@@ -75,3 +75,4 @@ format = '[[  $time ](fg:#a0a9cb bg:#1d2230)]($style)'
 [cmd_duration]
 show_milliseconds = true
 format = " in $duration "
+min_time = 0
