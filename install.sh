@@ -36,6 +36,6 @@ brew bundle --file="$SCRIPT_DIR/Brewfile"
 # --- Stow dotfiles ---
 echo "==> Stowing dotfiles..."
 cd "$SCRIPT_DIR"
-stow -v home
+stow --adopt -v home
 
 echo "==> All done!"
