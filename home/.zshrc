@@ -10,6 +10,15 @@ fi
 # PATH
 export PATH="$HOME/.local/bin:$PATH"
 
+# unicode and time zone
+export LANG=en_US.UTF-8
+export TZ=Asia/Shanghai
+
+# config update
+function config-update() {
+    git -C ~/config pull
+}
+
 # zoxide
 eval "$(zoxide init zsh)"
 
@@ -42,7 +51,3 @@ if [[ -f "$HOME/.zsh_secrets" ]]; then
     source "$HOME/.zsh_secrets"
 fi
 
-# config update util
-function config-update() {
-    git -C ~/config pull
-}
