@@ -36,3 +36,14 @@ source $HOMEBREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zs
 if [[ -f "$HOME/.zshrc.local" ]]; then
     source "$HOME/.zshrc.local"
 fi
+
+# secrets
+if [[ -f "$HOME/.zsh_secrets" ]]; then
+    source "$HOME/.zsh_secrets"
+fi
+
+# config update util
+function config-update() {
+    git -C ~/config pull
+    stow -v home
+}
