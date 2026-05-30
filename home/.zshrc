@@ -45,5 +45,4 @@ fi
 # config update util
 function config-update() {
     git -C ~/config pull
-    stow -v home
 }
