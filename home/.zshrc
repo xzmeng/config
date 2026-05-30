@@ -14,6 +14,11 @@ export PATH="$HOME/.local/bin:$PATH"
 export LANG=en_US.UTF-8
 export TZ=Asia/Shanghai
 
+# terminfo
+if [[ $TERM != "xterm-ghostty" ]]; then
+  export TERM=xterm-256color
+fi
+
 # config update
 function config-update() {
     git -C ~/config pull
@@ -50,4 +55,3 @@ fi
 if [[ -f "$HOME/.zsh_secrets" ]]; then
     source "$HOME/.zsh_secrets"
 fi
-
