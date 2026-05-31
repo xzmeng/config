@@ -2,6 +2,9 @@
 
 set -euo pipefail
 
+REPO_URL="https://github.com/xzmeng/config.git"
+CONFIG_DIR="$HOME/config"
+
 BREW_PATHS=(
   /opt/homebrew/bin/brew
   /usr/local/bin/brew
@@ -37,7 +40,6 @@ install_homebrew() {
   echo "Installing Homebrew..."
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
-  # Homebrew may install to a path not on the default PATH.
   for brew_path in "${BREW_PATHS[@]}"; do
     if [[ -x "$brew_path" ]]; then
       eval "$("$brew_path" shellenv)"
@@ -52,6 +54,30 @@ install_homebrew() {
   fi
 }
 
+clone_repo() {
+  if [[ -d "$CONFIG_DIR/.git" ]]; then
+    echo "Config repo already exists at $CONFIG_DIR, pulling latest..."
+    git -C "$CONFIG_DIR" pull
+  else
+    echo "Cloning config repo to $CONFIG_DIR..."
+    git clone "$REPO_URL" "$CONFIG_DIR"
+  fi
+}
+
+# ── main ──
+
+# Ensure git is available early (needed for clone)
+if ! command -v git &>/dev/null; then
+  if command -v apt-get &>/dev/null; then
+    sudo apt-get update -qq && sudo apt-get install -y -qq git
+  else
+    echo "Error: git is required but not found." >&2
+    exit 1
+  fi
+fi
+
+clone_repo
+cd "$CONFIG_DIR"
 install_homebrew
 brew bundle
 stow home
