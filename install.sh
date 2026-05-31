@@ -11,6 +11,11 @@ BREW_PATHS=(
   /home/linuxbrew/.linuxbrew/bin/brew
 )
 
+BREW=""
+BREW_PREFIX=""
+
+# ── helpers ──
+
 find_brew() {
   for brew_path in "${BREW_PATHS[@]}"; do
     if [[ -x "$brew_path" ]]; then
@@ -29,29 +34,25 @@ install_homebrew_deps() {
   fi
 }
 
-install_homebrew() {
+ensure_brew() {
   local brew_path
-  if brew_path=$(find_brew); then
-    echo "Homebrew already installed: $("$brew_path" --version | head -1)"
-    return 0
+  if ! brew_path=$(find_brew); then
+    install_homebrew_deps
+    echo "Installing Homebrew..."
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+    brew_path=$(find_brew) || {
+      echo "Error: Homebrew installation completed but brew binary not found." >&2
+      echo "Please add Homebrew to your PATH manually and re-run this script." >&2
+      exit 1
+    }
   fi
 
-  install_homebrew_deps
-  echo "Installing Homebrew..."
-  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  echo "Homebrew already installed: $("$brew_path" --version | head -1)"
+  eval "$("$brew_path" shellenv)"
 
-  for brew_path in "${BREW_PATHS[@]}"; do
-    if [[ -x "$brew_path" ]]; then
-      eval "$("$brew_path" shellenv)"
-      break
-    fi
-  done
-
-  if ! find_brew &>/dev/null; then
-    echo "Error: Homebrew installation completed but 'brew' is still not found." >&2
-    echo "Please add Homebrew to your PATH manually and re-run this script." >&2
-    exit 1
-  fi
+  BREW="$brew_path"
+  BREW_PREFIX=$("$brew_path" --prefix)
 }
 
 clone_repo() {
@@ -112,7 +113,7 @@ fi
 
 clone_repo
 cd "$CONFIG_DIR"
-install_homebrew
-brew bundle
-stow home
+ensure_brew
+"$BREW" bundle
+"$BREW_PREFIX/bin/stow" home
 setup_zsh
