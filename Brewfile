@@ -34,4 +34,5 @@ end
 # Linux
 if OS.linux?
   # Add Linux-specific packages here
+  brew "zsh"
 end
