@@ -10,7 +10,10 @@ brew "tmux"
 brew "zoxide"
 brew "zsh-autosuggestions"
 brew "zsh-syntax-highlighting"
+
+# neovim stuffs
 brew "neovim"
+brew "lazygit"
 
 # macOS
 if OS.mac?
