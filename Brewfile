@@ -1,10 +1,12 @@
 # Common
 brew "stow"
+brew "btop"
 brew "gh"
 brew "bat"
 brew "eza"
 brew "fzf"
 brew "starship"
+brew "tmux"
 brew "zoxide"
 brew "zsh-autosuggestions"
 brew "zsh-syntax-highlighting"
