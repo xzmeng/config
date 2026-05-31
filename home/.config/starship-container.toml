@@ -1,0 +1,248 @@
+"$schema" = 'https://starship.rs/config-schema.json'
+
+format = """
+[](flamingo)\
+$ctr\
+[](bg:peach fg:flamingo)\
+$hostname\
+[](bg:pink fg:peach)\
+$os\
+$username\
+[](bg:mauve fg:pink)\
+$directory\
+[](bg:teal fg:mauve)\
+$git_branch\
+$git_status\
+[](fg:teal bg:sky)\
+$c\
+$rust\
+$golang\
+$nodejs\
+$bun\
+$php\
+$java\
+$kotlin\
+$haskell\
+$python\
+[](fg:sky bg:rosewater)\
+$conda\
+$env_var\
+[](fg:rosewater bg:overlay0)\
+$time\
+[ ](fg:overlay0)\
+$cmd_duration\
+$line_break\
+$character"""
+
+palette = 'catppuccin_frappe'
+
+# ── Container runtime badge ───────────────────────────────────────────
+[custom.ctr]
+description = "Container runtime indicator"
+command = """
+if [ -f /.dockerenv ]; then
+    echo -n '🐳 docker'
+elif [ -n "$container" ] || [ -f /run/.containerenv ]; then
+    echo -n '🦭 podman'
+elif grep -q 'lxc' /proc/1/cgroup 2>/dev/null; then
+    echo -n '📦 lxc'
+else
+    echo -n '🧊 oci'
+fi
+"""
+when = "true"
+shell = ["bash", "-c"]
+style = "bg:flamingo fg:crust"
+format = '[$output]($style)'
+
+# ── Container hostname / ID ───────────────────────────────────────────
+[hostname]
+ssh_only = false
+style = "bg:peach fg:crust"
+format = '[$hostname]($style)'
+
+# ── OS icon ───────────────────────────────────────────────────────────
+[os]
+disabled = false
+style = "bg:pink fg:crust"
+
+[os.symbols]
+Windows = ""
+Ubuntu = "󰕈"
+SUSE = ""
+Raspbian = "󰐿"
+Mint = "󰣭"
+Macos = "󰀵"
+Manjaro = ""
+Linux = "󰌽"
+Gentoo = "󰣨"
+Fedora = "󰣛"
+Alpine = ""
+Amazon = ""
+Android = ""
+AOSC = ""
+Arch = "󰣇"
+Artix = "󰣇"
+CentOS = ""
+Debian = "󰣚"
+Redhat = "󱄛"
+RedHatEnterprise = "󱄛"
+
+# ── Username ──────────────────────────────────────────────────────────
+[username]
+show_always = true
+style_user = "bg:pink fg:crust"
+style_root = "bg:red fg:crust"
+format = '[$user]($style)'
+
+# ── Directory ─────────────────────────────────────────────────────────
+[directory]
+style = "bg:mauve fg:crust"
+format = "[ $path ]($style)"
+truncation_length = 5
+truncation_symbol = "…/"
+
+[directory.substitutions]
+"Documents" = "󰈙 "
+"Downloads" = " "
+"Music" = "󰝚 "
+"Pictures" = " "
+"Developer" = "󰲋 "
+
+# ── Git ───────────────────────────────────────────────────────────────
+[git_branch]
+symbol = ""
+style = "bg:teal"
+format = '[[ $symbol $branch ](fg:crust bg:teal)]($style)'
+
+[git_status]
+style = "bg:teal"
+format = '[[($all_status$ahead_behind )](fg:crust bg:teal)]($style)'
+
+# ── Languages ─────────────────────────────────────────────────────────
+[nodejs]
+symbol = ""
+style = "bg:sky"
+format = '[[ $symbol( $version) ](fg:crust bg:sky)]($style)'
+
+[bun]
+symbol = ""
+style = "bg:sky"
+format = '[[ $symbol( $version) ](fg:crust bg:sky)]($style)'
+
+[c]
+symbol = " "
+style = "bg:sky"
+format = '[[ $symbol( $version) ](fg:crust bg:sky)]($style)'
+
+[rust]
+symbol = ""
+style = "bg:sky"
+format = '[[ $symbol( $version) ](fg:crust bg:sky)]($style)'
+
+[golang]
+symbol = ""
+style = "bg:sky"
+format = '[[ $symbol( $version) ](fg:crust bg:sky)]($style)'
+
+[php]
+symbol = ""
+style = "bg:sky"
+format = '[[ $symbol( $version) ](fg:crust bg:sky)]($style)'
+
+[java]
+symbol = " "
+style = "bg:sky"
+format = '[[ $symbol( $version) ](fg:crust bg:sky)]($style)'
+
+[kotlin]
+symbol = ""
+style = "bg:sky"
+format = '[[ $symbol( $version) ](fg:crust bg:sky)]($style)'
+
+[haskell]
+symbol = ""
+style = "bg:sky"
+format = '[[ $symbol( $version) ](fg:crust bg:sky)]($style)'
+
+[python]
+symbol = ""
+style = "bg:sky"
+format = '[[ $symbol( $version)(\(#$virtualenv\)) ](fg:crust bg:sky)]($style)'
+
+# ── Docker context ────────────────────────────────────────────────────
+[docker_context]
+symbol = ""
+style = "bg:sapphire"
+format = '[[ $symbol( $context) ](fg:crust bg:sapphire)]($style)'
+
+# ── Conda ─────────────────────────────────────────────────────────────
+[conda]
+symbol = "  "
+style = "fg:crust bg:rosewater"
+format = '[$symbol$environment ]($style)'
+ignore_base = false
+
+# ── Container image (optional, set via -e CONTAINER_IMAGE=...) ────────
+[env_var.CONTAINER_IMAGE]
+default = ""
+format = "[$env_value]($style)"
+style = "bg:rosewater fg:crust"
+
+# ── Time ──────────────────────────────────────────────────────────────
+[time]
+disabled = false
+time_format = "%R"
+style = "bg:overlay0"
+format = '[[  $time ](fg:text bg:overlay0)]($style)'
+
+# ── Prompt character ──────────────────────────────────────────────────
+[line_break]
+disabled = true
+
+[character]
+disabled = false
+success_symbol = '[❯](bold fg:teal)'
+error_symbol = '[❯](bold fg:red)'
+vimcmd_symbol = '[❮](bold fg:teal)'
+vimcmd_replace_one_symbol = '[❮](bold fg:rosewater)'
+vimcmd_replace_symbol = '[❮](bold fg:rosewater)'
+vimcmd_visual_symbol = '[❮](bold fg:yellow)'
+
+# ── Command duration ──────────────────────────────────────────────────
+[cmd_duration]
+show_milliseconds = true
+format = " in $duration "
+style = "bg:overlay0"
+disabled = false
+show_notifications = true
+min_time_to_notify = 45000
+
+# ── Palette: Catppuccin Frappe ────────────────────────────────────────
+[palettes.catppuccin_frappe]
+rosewater = "#f2d5cf"
+flamingo = "#eebebe"
+pink = "#f4b8e4"
+mauve = "#ca9ee6"
+red = "#e78284"
+maroon = "#ea999c"
+peach = "#ef9f76"
+yellow = "#e5c890"
+green = "#a6d189"
+teal = "#81c8be"
+sky = "#99d1db"
+sapphire = "#85c1dc"
+blue = "#8caaee"
+lavender = "#babbf1"
+text = "#c6d0f5"
+subtext1 = "#b5bfe2"
+subtext0 = "#a5adce"
+overlay2 = "#949cbb"
+overlay1 = "#838ba7"
+overlay0 = "#737994"
+surface2 = "#626880"
+surface1 = "#51576d"
+surface0 = "#414559"
+base = "#303446"
+mantle = "#292c3c"
+crust = "#232634"

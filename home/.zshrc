@@ -30,7 +30,10 @@ eval "$(zoxide init zsh)"
 # fzf
 source <(fzf --zsh)
 
-# starship
+# starship — use container config when inside a container
+if [[ -f /.dockerenv ]] || [[ -n "$container" ]] || grep -qE '(docker|lxc|containerd|/podman)' /proc/1/cgroup 2>/dev/null; then
+    export STARSHIP_CONFIG="$HOME/.config/starship-container.toml"
+fi
 eval "$(starship init zsh)"
 
 # zsh 补全
