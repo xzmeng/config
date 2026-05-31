@@ -64,6 +64,40 @@ clone_repo() {
   fi
 }
 
+setup_zsh() {
+  if ! command -v apt-get &>/dev/null; then
+    return 0
+  fi
+
+  if ! command -v zsh &>/dev/null; then
+    echo "Installing zsh..."
+    sudo apt-get update -qq
+    sudo apt-get install -y -qq zsh
+  fi
+
+  local zsh_path
+  zsh_path=$(command -v zsh)
+  if [[ -z "$zsh_path" ]]; then
+    echo "zsh not found, skipping shell setup."
+    return 0
+  fi
+
+  if ! grep -qFx "$zsh_path" /etc/shells; then
+    echo "Adding $zsh_path to /etc/shells..."
+    echo "$zsh_path" | sudo tee -a /etc/shells >/dev/null
+  fi
+
+  if [[ "$SHELL" != "$zsh_path" ]]; then
+    echo "Changing default shell to $zsh_path..."
+    sudo chsh -s "$zsh_path" "$USER"
+  fi
+
+  if [[ -z "${ZSH_VERSION:-}" ]]; then
+    echo "Switching to zsh..."
+    exec "$zsh_path"
+  fi
+}
+
 # ── main ──
 
 # Ensure git is available early (needed for clone)
@@ -81,3 +115,4 @@ cd "$CONFIG_DIR"
 install_homebrew
 brew bundle
 stow home
+setup_zsh
