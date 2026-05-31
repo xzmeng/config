@@ -111,9 +111,9 @@ if ! command -v git &>/dev/null; then
   fi
 fi
 
+setup_zsh
 clone_repo
 cd "$CONFIG_DIR"
 ensure_brew
 "$BREW" bundle
 "$BREW_PREFIX/bin/stow" home
-setup_zsh
