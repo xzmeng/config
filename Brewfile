@@ -10,6 +10,7 @@ brew "tmux"
 brew "zoxide"
 brew "zsh-autosuggestions"
 brew "zsh-syntax-highlighting"
+brew "neovim"
 
 # macOS
 if OS.mac?

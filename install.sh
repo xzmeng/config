@@ -15,6 +15,7 @@ else
         zoxide
         zsh-autosuggestions
         zsh-syntax-highlighting
+        neovim
     )
     sudo apt update
     sudo apt install -y "${package_list[@]}"
