@@ -19,6 +19,9 @@ if [[ $TERM != "xterm-ghostty" ]]; then
   export TERM=xterm-256color
 fi
 
+# aliases
+alias vi="nvim"
+
 # config update
 function config-update() {
     git -C ~/config pull
