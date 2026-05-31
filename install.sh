@@ -92,11 +92,6 @@ setup_zsh() {
     echo "Changing default shell to $zsh_path..."
     sudo chsh -s "$zsh_path" "$USER"
   fi
-
-  if [[ -z "${ZSH_VERSION:-}" ]]; then
-    echo "Switching to zsh..."
-    exec "$zsh_path"
-  fi
 }
 
 # ── main ──
@@ -117,3 +112,11 @@ cd "$CONFIG_DIR"
 ensure_brew
 "$BREW" bundle
 "$BREW_PREFIX/bin/stow" home
+
+# ── final hints ──
+
+if [[ "$SHELL" == */zsh ]]; then
+  echo "Config installed. Run 'exec zsh' or 'source ~/.zshrc' to apply."
+else
+  echo "Config installed. Run 'zsh' or log out and back in to switch to Zsh."
+fi
