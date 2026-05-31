@@ -43,6 +43,8 @@ compinit
 # 开启大小写不敏感补全
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|=*' 'l:|=* r:|=*'
 
+zstyle ':completion:*' menu select
+
 # auto suggestions
 source $HOMEBREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 
