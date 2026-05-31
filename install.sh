@@ -21,3 +21,7 @@ else
 fi
 
 stow home
+
+# Ensure tmux helper scripts are executable (stow preserves permissions,
+# but we set it explicitly in case the repo was cloned on a different OS)
+chmod +x "$HOME/.config/tmux/detect-container-icon.sh" 2>/dev/null || true
