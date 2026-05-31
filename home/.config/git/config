@@ -8,3 +8,9 @@
     br = branch
     ci = commit
     lg = log --graph --decorate --oneline --all
+[credential "https://github.com"]
+	helper = 
+	helper = !/usr/bin/gh auth git-credential
+[credential "https://gist.github.com"]
+	helper = 
+	helper = !/usr/bin/gh auth git-credential
