@@ -60,6 +60,7 @@ if [[ -f "$HOME/.zshrc.local" ]]; then
 fi
 
 # secrets
-if [[ -f "$HOME/.zsh_secrets" ]]; then
-    source "$HOME/.zsh_secrets"
+if [ -f "$HOME/.secrets.env" ]; then
+    # export all environment variables
+    export $(grep -v '^#' "$HOME/.secrets.env" | xargs)
 fi
