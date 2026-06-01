@@ -1,4 +1,1 @@
-- 容器内zsh-auto-suggestions颜色没有透明。
 - 不同环境下的提示符应该有明显的视觉差异，能够很清楚地认识到现在用的是什么环境。
-- zsh completions
-- 容器内zsh auto suggestions 输出混乱
