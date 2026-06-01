@@ -2,6 +2,7 @@
 brew "stow"
 brew "btop"
 brew "gh"
+brew "ghq"
 brew "bat"
 brew "eza"
 brew "fzf"
