@@ -14,6 +14,8 @@ brew "zsh-syntax-highlighting"
 # neovim stuffs
 brew "neovim"
 brew "lazygit"
+brew "ripgrep"
+brew "fd"
 
 # macOS
 if OS.mac?
