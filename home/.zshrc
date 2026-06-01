@@ -24,6 +24,7 @@ alias vi="nvim"
 function config-update() {
     git -C $HOME/config pull
     bash $HOME/config/install.sh
+    exec zsh
 }
 
 # zoxide
@@ -44,7 +45,7 @@ if [[ -n "$IS_CONTAINER" ]]; then
     # One-time container initialization
     if [[ ! -f "$HOME/.config-inited" ]]; then
         if command -v gh &>/dev/null; then
-            gh setup-git
+            gh auth setup-git
         fi
         touch "$HOME/.config-inited"
     fi
