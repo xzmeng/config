@@ -32,9 +32,22 @@ eval "$(zoxide init zsh)"
 # fzf
 source <(fzf --zsh)
 
-# starship — use container config when inside a container
+# Container detection (shared by starship and one-time init below)
 if [[ -f /.dockerenv ]] || [[ -n "$container" ]] || grep -qE '(docker|lxc|containerd|/podman)' /proc/1/cgroup 2>/dev/null; then
+    IS_CONTAINER=1
+fi
+
+# Container-specific configuration
+if [[ -n "$IS_CONTAINER" ]]; then
     export STARSHIP_CONFIG="$HOME/.config/starship-container.toml"
+
+    # One-time container initialization
+    if [[ ! -f "$HOME/.config-inited" ]]; then
+        if command -v gh &>/dev/null; then
+            gh setup-git
+        fi
+        touch "$HOME/.config-inited"
+    fi
 fi
 eval "$(starship init zsh)"
 
