@@ -38,13 +38,14 @@ if [[ -f /.dockerenv ]] || [[ -n "$container" ]] || grep -qE '(docker|lxc|contai
 fi
 eval "$(starship init zsh)"
 
-# zsh 补全
+
+# zsh-completions
+#FPATH=$HOMEBREW_PREFIX/share/zsh-completions:$FPATH
 autoload -Uz compinit
 compinit
-
-# 开启大小写不敏感补全
+# case insensitive completion
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|=*' 'l:|=* r:|=*'
-
+# menu select
 zstyle ':completion:*' menu select
 
 # auto suggestions
