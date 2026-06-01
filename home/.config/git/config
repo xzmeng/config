@@ -3,8 +3,11 @@
 	email = aumo@foxmail.com
 
 [alias]
-    st = status
-    co = checkout
-    br = branch
-    ci = commit
-    lg = log --graph --decorate --oneline --all
+  st = status
+  co = checkout
+  br = branch
+  ci = commit
+  lg = log --graph --decorate --oneline --all
+
+[include]
+  path = ~/.gitconfig.local
