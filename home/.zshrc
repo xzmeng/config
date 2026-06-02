@@ -41,6 +41,7 @@ fi
 # Container-specific configuration
 if [[ -n "$IS_CONTAINER" ]]; then
     export STARSHIP_CONFIG="$HOME/.config/starship-container.toml"
+    export SHELL=$(which zsh)
 
     # One-time container initialization
     if [[ ! -f "$HOME/.config-inited" ]]; then
@@ -50,8 +51,9 @@ if [[ -n "$IS_CONTAINER" ]]; then
         touch "$HOME/.config-inited"
     fi
 fi
-eval "$(starship init zsh)"
 
+# starship
+eval "$(starship init zsh)"
 
 # zsh-completions
 #FPATH=$HOMEBREW_PREFIX/share/zsh-completions:$FPATH
