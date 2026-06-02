@@ -114,6 +114,12 @@ ensure_brew
 "$BREW" bundle
 "$BREW_PREFIX/bin/stow" home
 
+# ── install LazyVim plugins ──
+echo "Installing LazyVim plugins..."
+nvim --headless "+Lazy! sync" +qa 2>/dev/null || {
+  echo "Warning: LazyVim plugin sync failed. Run ':Lazy sync' in Neovim manually."
+}
+
 # ── final hints ──
 
 if [[ "$SHELL" == */zsh ]]; then
