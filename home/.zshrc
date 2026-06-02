@@ -11,6 +11,7 @@ fi
 export PATH="$HOME/.local/bin:$PATH"
 # Homebrew rustup is keg-only
 export PATH="/usr/local/opt/rustup/bin:$PATH"
+# TODO: check path apple sillicon compatibility
 
 # unicode and time zone
 export LANG=en_US.UTF-8

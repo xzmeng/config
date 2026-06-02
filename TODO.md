@@ -1,2 +1,3 @@
 - 不同环境下的提示符应该有明显的视觉差异，能够很清楚地认识到现在用的是什么环境。
 - hammerspoon cmd-w 关闭PWA
+- reorganize install.sh
