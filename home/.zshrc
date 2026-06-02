@@ -7,8 +7,10 @@ elif [[ -x /home/linuxbrew/.linuxbrew/bin/brew ]]; then
   eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 fi
 
-# PATH
+# Path for scripts installed command
 export PATH="$HOME/.local/bin:$PATH"
+# Homebrew rustup is keg-only
+export PATH="/usr/local/opt/rustup/bin:$PATH"
 
 # unicode and time zone
 export LANG=en_US.UTF-8
